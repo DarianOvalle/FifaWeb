@@ -17,20 +17,30 @@
   <main class="container">
     <!-- Nombres de los amigos -->
     <section class="card amigos">
-      <h2>👥 Los tres amigos</h2>
-      <p class="hint">Escribe los nombres de quienes van a predecir.</p>
+      <h2>👥 ¿Quiénes van a predecir?</h2>
+      <p class="hint">Elige cuántas personas participan y escribe sus nombres.</p>
+
+      <div class="selector-cantidad">
+        <span class="selector-label">Número de personas:</span>
+        <div class="opciones-cantidad" id="opcionesCantidad">
+          <button type="button" class="num-btn" data-num="1">1</button>
+          <button type="button" class="num-btn" data-num="2">2</button>
+          <button type="button" class="num-btn" data-num="3">3</button>
+        </div>
+      </div>
+
       <div class="amigos-grid">
         <label class="amigo amigo-1">
           <span class="dot"></span>
-          <input type="text" id="amigo1" placeholder="Amigo 1" maxlength="20" />
+          <input type="text" id="amigo1" placeholder="Persona 1" maxlength="20" />
         </label>
         <label class="amigo amigo-2">
           <span class="dot"></span>
-          <input type="text" id="amigo2" placeholder="Amigo 2" maxlength="20" />
+          <input type="text" id="amigo2" placeholder="Persona 2" maxlength="20" />
         </label>
         <label class="amigo amigo-3">
           <span class="dot"></span>
-          <input type="text" id="amigo3" placeholder="Amigo 3" maxlength="20" />
+          <input type="text" id="amigo3" placeholder="Persona 3" maxlength="20" />
         </label>
       </div>
     </section>

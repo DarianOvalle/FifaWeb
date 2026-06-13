@@ -73,6 +73,36 @@ body {
 .card h2 { font-size: 1.2rem; margin-bottom: 4px; }
 .hint { color: var(--texto-suave); font-size: 0.9rem; margin-bottom: 14px; }
 
+/* SELECTOR DE CANTIDAD */
+.selector-cantidad {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.selector-label { color: var(--texto-suave); font-size: 0.9rem; }
+.opciones-cantidad { display: flex; gap: 8px; }
+.num-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid var(--borde);
+  background: var(--tarjeta-2);
+  color: var(--texto);
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.num-btn:hover { border-color: var(--verde-claro); }
+.num-btn.activo {
+  background: var(--verde);
+  border-color: var(--verde-claro);
+  color: #fff;
+  transform: scale(1.05);
+}
+
 /* AMIGOS */
 .amigos-grid {
   display: grid;
@@ -194,7 +224,24 @@ body {
 .equipo { display: flex; align-items: center; gap: 6px; }
 .bandera { font-size: 1.4rem; }
 .vs { color: var(--texto-suave); font-weight: 400; padding: 0 4px; }
+.partido-meta { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .fecha { color: var(--texto-suave); font-size: 0.8rem; white-space: nowrap; }
+
+/* PARTIDO FINALIZADO */
+.estado-finalizado {
+  background: rgba(255, 71, 87, 0.15);
+  color: #ff4757;
+  border: 1px solid #ff4757;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.partido.finalizado { opacity: 0.85; }
+.partido.finalizado .equipos { color: var(--texto-suave); }
 
 /* PREDICCIONES */
 .predicciones { display: flex; flex-direction: column; gap: 8px; }
