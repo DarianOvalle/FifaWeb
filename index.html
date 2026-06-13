@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Predicciones Mundial 2026 ⚽</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-content">
+      <h1>🏆 Mundial FIFA 2026</h1>
+      <p class="subtitle">Polla de predicciones entre amigos · 🇺🇸 🇨🇦 🇲🇽</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Nombres de los amigos -->
+    <section class="card amigos">
+      <h2>👥 Los tres amigos</h2>
+      <p class="hint">Escribe los nombres de quienes van a predecir.</p>
+      <div class="amigos-grid">
+        <label class="amigo amigo-1">
+          <span class="dot"></span>
+          <input type="text" id="amigo1" placeholder="Amigo 1" maxlength="20" />
+        </label>
+        <label class="amigo amigo-2">
+          <span class="dot"></span>
+          <input type="text" id="amigo2" placeholder="Amigo 2" maxlength="20" />
+        </label>
+        <label class="amigo amigo-3">
+          <span class="dot"></span>
+          <input type="text" id="amigo3" placeholder="Amigo 3" maxlength="20" />
+        </label>
+      </div>
+    </section>
+
+    <!-- Filtros -->
+    <section class="toolbar">
+      <div class="filtros" id="filtros"></div>
+      <div class="acciones">
+        <button id="btnGuardar" class="btn btn-primary">💾 Guardar</button>
+        <button id="btnReset" class="btn btn-ghost">🗑️ Borrar todo</button>
+      </div>
+    </section>
+
+    <div id="aviso" class="aviso oculto"></div>
+
+    <!-- Lista de partidos -->
+    <section id="partidos" class="partidos"></section>
+  </main>
+
+  <footer class="footer">
+    <p>Hecho para predecir el Mundial 2026 con amigos · Los datos se guardan en tu navegador.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
