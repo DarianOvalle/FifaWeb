@@ -1,0 +1,249 @@
+:root {
+  --verde: #00875a;
+  --verde-claro: #2ecc71;
+  --fondo: #0f1724;
+  --tarjeta: #1b2334;
+  --tarjeta-2: #232c40;
+  --texto: #e7ecf3;
+  --texto-suave: #9aa6bd;
+  --borde: #2d3852;
+  --amigo1: #ff6b6b;
+  --amigo2: #4dabf7;
+  --amigo3: #ffd43b;
+  --sombra: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: radial-gradient(1200px 600px at 80% -10%, #15324a 0%, var(--fondo) 55%);
+  color: var(--texto);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #006d44, #00a86b 60%, #0db14b);
+  padding: 48px 16px 40px;
+  text-align: center;
+  box-shadow: var(--sombra);
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: "⚽";
+  position: absolute;
+  font-size: 220px;
+  opacity: 0.08;
+  right: -20px;
+  top: -40px;
+  transform: rotate(-15deg);
+}
+.hero h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  letter-spacing: 0.5px;
+}
+.subtitle {
+  margin-top: 8px;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  opacity: 0.95;
+}
+
+/* LAYOUT */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+
+.card {
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--sombra);
+}
+.card h2 { font-size: 1.2rem; margin-bottom: 4px; }
+.hint { color: var(--texto-suave); font-size: 0.9rem; margin-bottom: 14px; }
+
+/* AMIGOS */
+.amigos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.amigo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--tarjeta-2);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.amigo .dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.amigo-1 .dot { background: var(--amigo1); }
+.amigo-2 .dot { background: var(--amigo2); }
+.amigo-3 .dot { background: var(--amigo3); }
+.amigo input {
+  background: transparent;
+  border: none;
+  color: var(--texto);
+  font-size: 1rem;
+  width: 100%;
+  outline: none;
+  font-weight: 600;
+}
+.amigo input::placeholder { color: var(--texto-suave); font-weight: 400; }
+
+/* TOOLBAR */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.filtros { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  color: var(--texto-suave);
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.15s ease;
+}
+.chip:hover { border-color: var(--verde-claro); color: var(--texto); }
+.chip.activo {
+  background: var(--verde);
+  border-color: var(--verde-claro);
+  color: #fff;
+  font-weight: 600;
+}
+.acciones { display: flex; gap: 8px; }
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.15s ease;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--verde-claro); color: #04231a; }
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-ghost { background: transparent; color: var(--texto-suave); border: 1px solid var(--borde); }
+.btn-ghost:hover { color: #ff8787; border-color: #ff8787; }
+
+/* AVISO */
+.aviso {
+  background: rgba(46, 204, 113, 0.15);
+  border: 1px solid var(--verde-claro);
+  color: var(--verde-claro);
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+.oculto { display: none; }
+
+/* PARTIDOS */
+.etapa-titulo {
+  margin: 22px 4px 10px;
+  font-size: 1.05rem;
+  color: var(--verde-claro);
+  border-left: 4px solid var(--verde-claro);
+  padding-left: 10px;
+}
+.partido {
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--sombra);
+}
+.partido-cab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.equipos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.equipo { display: flex; align-items: center; gap: 6px; }
+.bandera { font-size: 1.4rem; }
+.vs { color: var(--texto-suave); font-weight: 400; padding: 0 4px; }
+.fecha { color: var(--texto-suave); font-size: 0.8rem; white-space: nowrap; }
+
+/* PREDICCIONES */
+.predicciones { display: flex; flex-direction: column; gap: 8px; }
+.prediccion {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  background: var(--tarjeta-2);
+  border-radius: 10px;
+  padding: 8px 12px;
+  border-left: 4px solid var(--borde);
+}
+.prediccion.p1 { border-left-color: var(--amigo1); }
+.prediccion.p2 { border-left-color: var(--amigo2); }
+.prediccion.p3 { border-left-color: var(--amigo3); }
+.pred-nombre {
+  font-weight: 600;
+  font-size: 0.92rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pred-marcador { display: flex; align-items: center; gap: 6px; }
+.pred-marcador input {
+  width: 46px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 6px 0;
+  border-radius: 8px;
+  border: 1px solid var(--borde);
+  background: var(--fondo);
+  color: var(--texto);
+  outline: none;
+}
+.pred-marcador input:focus { border-color: var(--verde-claro); }
+.pred-marcador .guion { color: var(--texto-suave); font-weight: 700; }
+
+.footer {
+  text-align: center;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  padding: 24px 16px 40px;
+}
+
+@media (max-width: 560px) {
+  .amigos-grid { grid-template-columns: 1fr; }
+  .equipos { font-size: 0.95rem; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .acciones { justify-content: flex-end; }
+}
