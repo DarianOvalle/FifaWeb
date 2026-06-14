@@ -1,21 +1,18 @@
 // Datos del Mundial FIFA 2026 (sedes: 🇺🇸 EE.UU., 🇨🇦 Canadá y 🇲🇽 México)
-// Grupos A–F tomados del fixture oficial (con sede y horario en formato 24h).
-// "Repechaje" = plaza de repesca/playoff aún por definir.
-// Grupos G–L: pendientes de confirmar con la imagen en buena calidad
-// (por eso salen marcados como "por confirmar").
-
-const REPECHAJE = { nombre: "Repechaje", bandera: "🎟️" };
+// 12 grupos oficiales según el sorteo del 5 de diciembre de 2025.
+// Los repechajes ya se jugaron: A4 Chequia, B2 Bosnia, D4 Turquía, F3 Suecia.
+// Grupos A–F con sede y horario reales; G–L con fechas por confirmar.
 
 const GRUPOS = {
   A: [
     { nombre: "México", bandera: "🇲🇽" },
     { nombre: "Sudáfrica", bandera: "🇿🇦" },
     { nombre: "Corea del Sur", bandera: "🇰🇷" },
-    REPECHAJE,
+    { nombre: "Chequia", bandera: "🇨🇿" },
   ],
   B: [
     { nombre: "Canadá", bandera: "🇨🇦" },
-    REPECHAJE,
+    { nombre: "Bosnia y Herzegovina", bandera: "🇧🇦" },
     { nombre: "Catar", bandera: "🇶🇦" },
     { nombre: "Suiza", bandera: "🇨🇭" },
   ],
@@ -29,7 +26,7 @@ const GRUPOS = {
     { nombre: "Estados Unidos", bandera: "🇺🇸" },
     { nombre: "Paraguay", bandera: "🇵🇾" },
     { nombre: "Australia", bandera: "🇦🇺" },
-    REPECHAJE,
+    { nombre: "Turquía", bandera: "🇹🇷" },
   ],
   E: [
     { nombre: "Alemania", bandera: "🇩🇪" },
@@ -40,7 +37,7 @@ const GRUPOS = {
   F: [
     { nombre: "Países Bajos", bandera: "🇳🇱" },
     { nombre: "Japón", bandera: "🇯🇵" },
-    REPECHAJE,
+    { nombre: "Suecia", bandera: "🇸🇪" },
     { nombre: "Túnez", bandera: "🇹🇳" },
   ],
   // ----- Grupos G–L: equipos confirmados, fechas/sedes por confirmar -----
