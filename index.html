@@ -50,6 +50,7 @@
       <div class="filtros" id="filtros"></div>
       <div class="acciones">
         <button id="btnGuardar" class="btn btn-primary">💾 Guardar</button>
+        <button id="btnVer" class="btn btn-ver oculto">⭐ Ver mis predicciones</button>
         <button id="btnReset" class="btn btn-ghost">🗑️ Borrar todo</button>
       </div>
     </section>
@@ -63,6 +64,19 @@
   <footer class="footer">
     <p>Hecho para predecir el Mundial 2026 con amigos · Los datos se guardan en tu navegador.</p>
   </footer>
+
+  <!-- Recuadro con las predicciones guardadas -->
+  <div id="modalGuardadas" class="modal oculto">
+    <div class="modal-fondo" id="modalFondo"></div>
+    <div class="modal-cuadro">
+      <div class="modal-cab">
+        <h3>⭐ Mis predicciones guardadas</h3>
+        <button class="modal-cerrar" id="modalCerrar" aria-label="Cerrar">✕</button>
+      </div>
+      <p class="modal-hint">Toca una para volver a cargarla con todos sus datos.</p>
+      <div class="modal-lista" id="modalLista"></div>
+    </div>
+  </div>
 
   <script src="data.js"></script>
   <script src="app.js"></script>

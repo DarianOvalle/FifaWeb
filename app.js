@@ -4,11 +4,13 @@
 const STORAGE_AMIGOS = "mundial2026_amigos";
 const STORAGE_PRED = "mundial2026_predicciones";
 const STORAGE_NUM = "mundial2026_numAmigos";
+const STORAGE_GUARDADAS = "mundial2026_guardadas";
 
 let amigos = ["", "", ""];
 let predicciones = {}; // { [idPartido]: { 0:{l,v}, 1:{l,v}, 2:{l,v} } }
 let filtroActivo = "Todos";
 let numAmigos = 3; // cuántas personas predicen (1, 2 o 3)
+let guardadas = []; // lista de predicciones guardadas (historial)
 
 // ---------- Almacenamiento ----------
 function cargarDatos() {
@@ -22,13 +24,136 @@ function cargarDatos() {
   } catch (e) {}
   const n = parseInt(localStorage.getItem(STORAGE_NUM), 10);
   if (n === 1 || n === 2 || n === 3) numAmigos = n;
+  try {
+    const g = JSON.parse(localStorage.getItem(STORAGE_GUARDADAS));
+    if (Array.isArray(g)) guardadas = g;
+  } catch (e) {}
 }
 
 function guardarDatos() {
   localStorage.setItem(STORAGE_AMIGOS, JSON.stringify(amigos));
   localStorage.setItem(STORAGE_PRED, JSON.stringify(predicciones));
   localStorage.setItem(STORAGE_NUM, String(numAmigos));
-  mostrarAviso("✅ ¡Guardado! Tus predicciones quedaron en este navegador.");
+
+  // Crear una "foto" (snapshot) de las predicciones actuales en el historial
+  const snapshot = {
+    id: Date.now(),
+    fechaTexto: new Date().toLocaleString("es-ES", {
+      day: "2-digit", month: "2-digit", year: "numeric",
+      hour: "2-digit", minute: "2-digit",
+    }),
+    numAmigos: numAmigos,
+    amigos: amigos.slice(),
+    predicciones: JSON.parse(JSON.stringify(predicciones)),
+  };
+  guardadas.unshift(snapshot);
+  if (guardadas.length > 30) guardadas = guardadas.slice(0, 30);
+  localStorage.setItem(STORAGE_GUARDADAS, JSON.stringify(guardadas));
+
+  actualizarBotonVer();
+  mostrarAviso("✅ ¡Guardado! Pulsa \"Ver mis predicciones\" para revisarlas.");
+}
+
+// Cuenta cuántos marcadores tienen ambos números puestos
+function contarPredicciones(preds) {
+  let total = 0;
+  Object.keys(preds || {}).forEach((idPartido) => {
+    Object.keys(preds[idPartido]).forEach((amigoIdx) => {
+      const p = preds[idPartido][amigoIdx];
+      if (p && p.l !== "" && p.v !== "") total++;
+    });
+  });
+  return total;
+}
+
+// ---------- Predicciones guardadas (modal) ----------
+function actualizarBotonVer() {
+  const btn = document.getElementById("btnVer");
+  if (!btn) return;
+  btn.classList.toggle("oculto", guardadas.length === 0);
+}
+
+function abrirModalGuardadas() {
+  renderListaGuardadas();
+  document.getElementById("modalGuardadas").classList.remove("oculto");
+}
+
+function cerrarModalGuardadas() {
+  document.getElementById("modalGuardadas").classList.add("oculto");
+}
+
+function renderListaGuardadas() {
+  const lista = document.getElementById("modalLista");
+  lista.innerHTML = "";
+
+  if (guardadas.length === 0) {
+    const vacio = document.createElement("p");
+    vacio.className = "modal-vacio";
+    vacio.textContent = "Todavía no has guardado ninguna predicción.";
+    lista.appendChild(vacio);
+    return;
+  }
+
+  guardadas.forEach((snap) => {
+    const item = document.createElement("div");
+    item.className = "guardada";
+
+    const info = document.createElement("div");
+    info.className = "guardada-info";
+
+    const nombres = document.createElement("span");
+    nombres.className = "guardada-nombres";
+    const listaNombres = snap.amigos
+      .slice(0, snap.numAmigos)
+      .map((n, i) => (n && n.length ? n : "Amigo " + (i + 1)));
+    nombres.textContent = listaNombres.join(", ");
+
+    const meta = document.createElement("span");
+    meta.className = "guardada-meta";
+    meta.textContent = `${snap.fechaTexto} · ${contarPredicciones(snap.predicciones)} marcadores`;
+
+    info.appendChild(nombres);
+    info.appendChild(meta);
+
+    const borrar = document.createElement("button");
+    borrar.className = "guardada-borrar";
+    borrar.textContent = "🗑️";
+    borrar.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      eliminarGuardada(snap.id);
+    });
+
+    item.appendChild(info);
+    item.appendChild(borrar);
+    item.addEventListener("click", () => cargarGuardada(snap.id));
+    lista.appendChild(item);
+  });
+}
+
+function cargarGuardada(id) {
+  const snap = guardadas.find((s) => s.id === id);
+  if (!snap) return;
+  numAmigos = snap.numAmigos;
+  amigos = ["", "", ""];
+  snap.amigos.forEach((n, i) => { amigos[i] = n; });
+  predicciones = JSON.parse(JSON.stringify(snap.predicciones));
+
+  localStorage.setItem(STORAGE_AMIGOS, JSON.stringify(amigos));
+  localStorage.setItem(STORAGE_PRED, JSON.stringify(predicciones));
+  localStorage.setItem(STORAGE_NUM, String(numAmigos));
+
+  initSelectorCantidad();
+  initAmigos();
+  renderPartidos();
+  cerrarModalGuardadas();
+  mostrarAviso("📂 Predicción cargada.");
+}
+
+function eliminarGuardada(id) {
+  guardadas = guardadas.filter((s) => s.id !== id);
+  localStorage.setItem(STORAGE_GUARDADAS, JSON.stringify(guardadas));
+  renderListaGuardadas();
+  actualizarBotonVer();
 }
 
 function mostrarAviso(texto) {
@@ -277,8 +402,15 @@ function init() {
   initAmigos();
   initFiltros();
   renderPartidos();
+  actualizarBotonVer();
   document.getElementById("btnGuardar").addEventListener("click", guardarDatos);
   document.getElementById("btnReset").addEventListener("click", resetTodo);
+  document.getElementById("btnVer").addEventListener("click", abrirModalGuardadas);
+  document.getElementById("modalCerrar").addEventListener("click", cerrarModalGuardadas);
+  document.getElementById("modalFondo").addEventListener("click", cerrarModalGuardadas);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") cerrarModalGuardadas();
+  });
   // Guardado automático al cerrar/cambiar de pestaña
   window.addEventListener("beforeunload", () => {
     localStorage.setItem(STORAGE_AMIGOS, JSON.stringify(amigos));
