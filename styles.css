@@ -109,6 +109,31 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
+.amigos-acciones {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+/* Botón cuadrado rojo para borrar solo los nombres.
+   Cambia --tacho-radius para ajustar las esquinas. */
+.btn-tacho {
+  --tacho-radius: 10px;
+  width: 42px;
+  height: 42px;
+  background: #e53935;
+  border: none;
+  border-radius: var(--tacho-radius);
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(229, 57, 53, 0.4);
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+.btn-tacho:hover { filter: brightness(1.1); }
+.btn-tacho:active { transform: scale(0.94); }
 .amigo {
   display: flex;
   align-items: center;

@@ -379,6 +379,15 @@ function renderPartidos() {
   });
 }
 
+// Borra solo los nombres de las personas (no toca predicciones ni historial)
+function borrarPersonas() {
+  amigos = ["", "", ""];
+  localStorage.setItem(STORAGE_AMIGOS, JSON.stringify(amigos));
+  initAmigos();
+  actualizarNombresEnPredicciones();
+  mostrarAviso("🗑️ Nombres borrados.");
+}
+
 // ---------- Reset ----------
 function resetTodo() {
   if (!confirm("¿Seguro que quieres borrar TODOS los nombres y predicciones?")) return;
@@ -405,6 +414,7 @@ function init() {
   actualizarBotonVer();
   document.getElementById("btnGuardar").addEventListener("click", guardarDatos);
   document.getElementById("btnReset").addEventListener("click", resetTodo);
+  document.getElementById("btnBorrarPersonas").addEventListener("click", borrarPersonas);
   document.getElementById("btnVer").addEventListener("click", abrirModalGuardadas);
   document.getElementById("modalCerrar").addEventListener("click", cerrarModalGuardadas);
   document.getElementById("modalFondo").addEventListener("click", cerrarModalGuardadas);
