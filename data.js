@@ -1,126 +1,211 @@
-// Datos del Mundial FIFA 2026 (sedes: EE.UU., México y Canadá)
-// Formato: 48 equipos en 12 grupos de 4. Aquí se incluyen equipos
-// representativos/probables, ya que el sorteo oficial define los grupos.
-// Puedes editar los nombres de los equipos libremente.
+// Datos del Mundial FIFA 2026 (sedes: 🇺🇸 EE.UU., 🇨🇦 Canadá y 🇲🇽 México)
+// Equipos y calendario tomados del fixture oficial de la fase de grupos.
+// Las fechas marcadas como "estimado: true" están por confirmar.
 
 const GRUPOS = {
   A: [
     { nombre: "México", bandera: "🇲🇽" },
-    { nombre: "Polonia", bandera: "🇵🇱" },
-    { nombre: "Egipto", bandera: "🇪🇬" },
-    { nombre: "Catar", bandera: "🇶🇦" },
+    { nombre: "Sudáfrica", bandera: "🇿🇦" },
+    { nombre: "Corea del Sur", bandera: "🇰🇷" },
+    { nombre: "Chequia", bandera: "🇨🇿" },
   ],
   B: [
     { nombre: "Canadá", bandera: "🇨🇦" },
-    { nombre: "Croacia", bandera: "🇭🇷" },
-    { nombre: "Ecuador", bandera: "🇪🇨" },
-    { nombre: "Túnez", bandera: "🇹🇳" },
+    { nombre: "Bosnia y Herzegovina", bandera: "🇧🇦" },
+    { nombre: "Catar", bandera: "🇶🇦" },
+    { nombre: "Suiza", bandera: "🇨🇭" },
   ],
   C: [
     { nombre: "Estados Unidos", bandera: "🇺🇸" },
-    { nombre: "Uruguay", bandera: "🇺🇾" },
-    { nombre: "Senegal", bandera: "🇸🇳" },
-    { nombre: "Corea del Sur", bandera: "🇰🇷" },
+    { nombre: "Paraguay", bandera: "🇵🇾" },
+    { nombre: "Australia", bandera: "🇦🇺" },
+    { nombre: "Turquía", bandera: "🇹🇷" },
   ],
   D: [
-    { nombre: "Argentina", bandera: "🇦🇷" },
-    { nombre: "Japón", bandera: "🇯🇵" },
-    { nombre: "Nigeria", bandera: "🇳🇬" },
-    { nombre: "Australia", bandera: "🇦🇺" },
+    { nombre: "Brasil", bandera: "🇧🇷" },
+    { nombre: "Marruecos", bandera: "🇲🇦" },
+    { nombre: "Haití", bandera: "🇭🇹" },
+    { nombre: "Escocia", bandera: "🏴󠁧󠁢󠁳󠁣󠁴󠁿" },
   ],
   E: [
-    { nombre: "Francia", bandera: "🇫🇷" },
-    { nombre: "Suiza", bandera: "🇨🇭" },
-    { nombre: "Marruecos", bandera: "🇲🇦" },
-    { nombre: "Costa Rica", bandera: "🇨🇷" },
+    { nombre: "Países Bajos", bandera: "🇳🇱" },
+    { nombre: "Japón", bandera: "🇯🇵" },
+    { nombre: "Suecia", bandera: "🇸🇪" },
+    { nombre: "Túnez", bandera: "🇹🇳" },
   ],
   F: [
-    { nombre: "Brasil", bandera: "🇧🇷" },
-    { nombre: "Países Bajos", bandera: "🇳🇱" },
-    { nombre: "Ghana", bandera: "🇬🇭" },
-    { nombre: "Arabia Saudita", bandera: "🇸🇦" },
+    { nombre: "Alemania", bandera: "🇩🇪" },
+    { nombre: "Curazao", bandera: "🇨🇼" },
+    { nombre: "Costa de Marfil", bandera: "🇨🇮" },
+    { nombre: "Ecuador", bandera: "🇪🇨" },
   ],
   G: [
     { nombre: "España", bandera: "🇪🇸" },
-    { nombre: "Dinamarca", bandera: "🇩🇰" },
-    { nombre: "Camerún", bandera: "🇨🇲" },
-    { nombre: "Irán", bandera: "🇮🇷" },
+    { nombre: "Cabo Verde", bandera: "🇨🇻" },
+    { nombre: "Bélgica", bandera: "🇧🇪" },
+    { nombre: "Egipto", bandera: "🇪🇬" },
   ],
   H: [
-    { nombre: "Alemania", bandera: "🇩🇪" },
-    { nombre: "Serbia", bandera: "🇷🇸" },
-    { nombre: "Costa de Marfil", bandera: "🇨🇮" },
-    { nombre: "Panamá", bandera: "🇵🇦" },
-  ],
-  I: [
-    { nombre: "Inglaterra", bandera: "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
-    { nombre: "Colombia", bandera: "🇨🇴" },
-    { nombre: "Argelia", bandera: "🇩🇿" },
+    { nombre: "Arabia Saudí", bandera: "🇸🇦" },
+    { nombre: "Uruguay", bandera: "🇺🇾" },
+    { nombre: "Irán", bandera: "🇮🇷" },
     { nombre: "Nueva Zelanda", bandera: "🇳🇿" },
   ],
+  I: [
+    { nombre: "Francia", bandera: "🇫🇷" },
+    { nombre: "Senegal", bandera: "🇸🇳" },
+    { nombre: "Irak", bandera: "🇮🇶" },
+    { nombre: "Noruega", bandera: "🇳🇴" },
+  ],
   J: [
-    { nombre: "Portugal", bandera: "🇵🇹" },
-    { nombre: "Bélgica", bandera: "🇧🇪" },
-    { nombre: "Mali", bandera: "🇲🇱" },
+    { nombre: "Argentina", bandera: "🇦🇷" },
+    { nombre: "Argelia", bandera: "🇩🇿" },
+    { nombre: "Austria", bandera: "🇦🇹" },
     { nombre: "Jordania", bandera: "🇯🇴" },
   ],
   K: [
-    { nombre: "Italia", bandera: "🇮🇹" },
-    { nombre: "Estados Unidos B", bandera: "🇺🇸" },
-    { nombre: "Sudáfrica", bandera: "🇿🇦" },
-    { nombre: "Honduras", bandera: "🇭🇳" },
+    { nombre: "Portugal", bandera: "🇵🇹" },
+    { nombre: "RD Congo", bandera: "🇨🇩" },
+    { nombre: "Ghana", bandera: "🇬🇭" },
+    { nombre: "Panamá", bandera: "🇵🇦" },
   ],
   L: [
-    { nombre: "Países Bajos B", bandera: "🇳🇱" },
-    { nombre: "Perú", bandera: "🇵🇪" },
-    { nombre: "Túnez B", bandera: "🇹🇳" },
+    { nombre: "Inglaterra", bandera: "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
+    { nombre: "Croacia", bandera: "🇭🇷" },
     { nombre: "Uzbekistán", bandera: "🇺🇿" },
+    { nombre: "Colombia", bandera: "🇨🇴" },
   ],
 };
 
-// Genera los 6 partidos (todos contra todos) de un grupo de 4 equipos
-function generarPartidosGrupo(letra, equipos, fechaInicio) {
-  const enfrentamientos = [
-    [0, 1], [2, 3],
-    [0, 2], [1, 3],
-    [0, 3], [1, 2],
-  ];
+// Calendario por grupo: [localIdx, visitanteIdx, fecha, hora, estimado]
+// Los partidos sin fecha/hora confirmada se marcan con estimado = true.
+const CALENDARIO = {
+  A: [
+    [0, 1, "2026-06-11", "12:30 PM", false],
+    [2, 3, "2026-06-11", "7:45 PM", false],
+    [3, 1, "2026-06-18", "9:45 AM", false],
+    [0, 2, "2026-06-18", "8:30 PM", false],
+    [0, 3, "2026-06-24", "", true],
+    [1, 2, "2026-06-24", "", true],
+  ],
+  B: [
+    [0, 1, "2026-06-12", "12:45 PM", false],
+    [2, 3, "2026-06-13", "12:45 PM", false],
+    [3, 1, "2026-06-18", "12:45 PM", false],
+    [0, 2, "2026-06-18", "3:45 PM", false],
+    [0, 3, "2026-06-24", "", true],
+    [1, 2, "2026-06-24", "", true],
+  ],
+  C: [
+    [0, 1, "2026-06-12", "6:40 PM", false],
+    [2, 3, "2026-06-13", "9:45 PM", false],
+    [0, 2, "2026-06-19", "12:45 PM", false],
+    [3, 1, "2026-06-19", "8:45 PM", false],
+    [0, 3, "2026-06-25", "", true],
+    [1, 2, "2026-06-25", "", true],
+  ],
+  D: [
+    [0, 1, "2026-06-13", "3:40 PM", false],
+    [2, 3, "2026-06-13", "6:45 PM", false],
+    [3, 1, "2026-06-19", "3:45 PM", false],
+    [0, 2, "2026-06-19", "6:10 PM", false],
+    [0, 3, "2026-06-25", "", true],
+    [1, 2, "2026-06-25", "", true],
+  ],
+  E: [
+    [0, 1, "2026-06-14", "1:40 PM", false],
+    [2, 3, "2026-06-14", "7:45 PM", false],
+    [0, 2, "2026-06-20", "10:40 AM", false],
+    [3, 1, "2026-06-20", "8:45 PM", false],
+    [0, 3, "2026-06-26", "", true],
+    [1, 2, "2026-06-26", "", true],
+  ],
+  F: [
+    [0, 1, "2026-06-14", "10:45 AM", false],
+    [2, 3, "2026-06-14", "4:45 PM", false],
+    [0, 2, "2026-06-20", "1:45 PM", false],
+    [3, 1, "2026-06-20", "5:45 PM", false],
+    [0, 3, "2026-06-26", "", true],
+    [1, 2, "2026-06-26", "", true],
+  ],
+  G: [
+    [0, 1, "2026-06-15", "9:45 AM", false],
+    [2, 3, "2026-06-15", "12:45 PM", false],
+    [0, 2, "2026-06-21", "", true],
+    [1, 3, "2026-06-21", "", true],
+    [0, 3, "2026-06-24", "", true],
+    [1, 2, "2026-06-24", "", true],
+  ],
+  H: [
+    [0, 1, "2026-06-15", "3:45 PM", false],
+    [2, 3, "2026-06-15", "6:45 PM", false],
+    [0, 2, "2026-06-21", "", true],
+    [1, 3, "2026-06-21", "", true],
+    [0, 3, "2026-06-24", "", true],
+    [1, 2, "2026-06-24", "", true],
+  ],
+  I: [
+    [0, 1, "2026-06-16", "12:45 PM", false],
+    [2, 3, "2026-06-16", "3:45 PM", false],
+    [0, 2, "2026-06-22", "", true],
+    [1, 3, "2026-06-22", "", true],
+    [0, 3, "2026-06-25", "", true],
+    [1, 2, "2026-06-25", "", true],
+  ],
+  J: [
+    [0, 1, "2026-06-16", "6:40 PM", false],
+    [2, 3, "2026-06-16", "9:45 PM", false],
+    [0, 2, "2026-06-22", "", true],
+    [1, 3, "2026-06-22", "", true],
+    [0, 3, "2026-06-25", "", true],
+    [1, 2, "2026-06-25", "", true],
+  ],
+  K: [
+    [0, 1, "2026-06-17", "10:45 AM", false],
+    [2, 3, "2026-06-17", "4:45 PM", false],
+    [0, 2, "2026-06-23", "", true],
+    [1, 3, "2026-06-23", "", true],
+    [0, 3, "2026-06-26", "", true],
+    [1, 2, "2026-06-26", "", true],
+  ],
+  L: [
+    [0, 1, "2026-06-17", "1:40 PM", false],
+    [2, 3, "2026-06-17", "7:45 PM", false],
+    [0, 2, "2026-06-23", "", true],
+    [1, 3, "2026-06-23", "", true],
+    [0, 3, "2026-06-26", "", true],
+    [1, 2, "2026-06-26", "", true],
+  ],
+};
+
+// Construye la lista completa de partidos de la fase de grupos
+function construirPartidos() {
   const partidos = [];
-  let dia = 0;
-  enfrentamientos.forEach((par, idx) => {
-    const fecha = new Date(fechaInicio);
-    fecha.setDate(fecha.getDate() + Math.floor(idx / 2) + dia);
-    partidos.push({
-      id: `G${letra}-${idx + 1}`,
-      etapa: `Grupo ${letra}`,
-      local: equipos[par[0]],
-      visitante: equipos[par[1]],
-      fecha: fecha.toISOString().slice(0, 10),
+  Object.keys(GRUPOS).forEach((letra) => {
+    const equipos = GRUPOS[letra];
+    CALENDARIO[letra].forEach((m, idx) => {
+      partidos.push({
+        id: `G${letra}-${idx + 1}`,
+        etapa: `Grupo ${letra}`,
+        local: equipos[m[0]],
+        visitante: equipos[m[1]],
+        fecha: m[2],
+        hora: m[3],
+        estimado: m[4] || false,
+      });
     });
   });
   return partidos;
 }
 
-// Construye la lista completa de partidos de la fase de grupos
-function construirPartidos() {
-  const partidos = [];
-  const letras = Object.keys(GRUPOS);
-  const inicio = new Date("2026-06-11");
-  letras.forEach((letra, i) => {
-    const fechaGrupo = new Date(inicio);
-    fechaGrupo.setDate(fechaGrupo.getDate() + Math.floor(i / 2));
-    partidos.push(...generarPartidosGrupo(letra, GRUPOS[letra], fechaGrupo));
-  });
-  return partidos;
-}
-
-// Partidos destacados de eliminatorias (se llenan con el avance del torneo)
+// Eliminatorias (los equipos se definen al terminar la fase de grupos)
 const ELIMINATORIAS = [
-  { id: "OF-1", etapa: "Octavos de final", local: { nombre: "1º Grupo A", bandera: "🏆" }, visitante: { nombre: "2º Grupo B", bandera: "🥈" }, fecha: "2026-06-28" },
-  { id: "OF-2", etapa: "Octavos de final", local: { nombre: "1º Grupo C", bandera: "🏆" }, visitante: { nombre: "2º Grupo D", bandera: "🥈" }, fecha: "2026-06-29" },
-  { id: "CF-1", etapa: "Cuartos de final", local: { nombre: "Ganador OF-1", bandera: "⚽" }, visitante: { nombre: "Ganador OF-2", bandera: "⚽" }, fecha: "2026-07-04" },
-  { id: "SF-1", etapa: "Semifinal", local: { nombre: "Ganador CF-1", bandera: "⚽" }, visitante: { nombre: "Ganador CF-2", bandera: "⚽" }, fecha: "2026-07-14" },
-  { id: "FINAL", etapa: "Final", local: { nombre: "Finalista 1", bandera: "🏅" }, visitante: { nombre: "Finalista 2", bandera: "🏅" }, fecha: "2026-07-19" },
+  { id: "D32", etapa: "Dieciseisavos de final", local: { nombre: "Por definir", bandera: "⚽" }, visitante: { nombre: "Por definir", bandera: "⚽" }, fecha: "2026-06-28", hora: "", estimado: true },
+  { id: "OF", etapa: "Octavos de final", local: { nombre: "Por definir", bandera: "⚽" }, visitante: { nombre: "Por definir", bandera: "⚽" }, fecha: "2026-07-04", hora: "", estimado: true },
+  { id: "CF", etapa: "Cuartos de final", local: { nombre: "Por definir", bandera: "⚽" }, visitante: { nombre: "Por definir", bandera: "⚽" }, fecha: "2026-07-09", hora: "", estimado: true },
+  { id: "SF", etapa: "Semifinal", local: { nombre: "Por definir", bandera: "⚽" }, visitante: { nombre: "Por definir", bandera: "⚽" }, fecha: "2026-07-14", hora: "", estimado: true },
+  { id: "3P", etapa: "Tercer puesto", local: { nombre: "Por definir", bandera: "🥉" }, visitante: { nombre: "Por definir", bandera: "🥉" }, fecha: "2026-07-18", hora: "", estimado: true },
+  { id: "FINAL", etapa: "Final", local: { nombre: "Por definir", bandera: "🏆" }, visitante: { nombre: "Por definir", bandera: "🏆" }, fecha: "2026-07-19", hora: "", estimado: true },
 ];
 
 const PARTIDOS = [...construirPartidos(), ...ELIMINATORIAS];

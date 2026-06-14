@@ -3,10 +3,12 @@
 
 const STORAGE_AMIGOS = "mundial2026_amigos";
 const STORAGE_PRED = "mundial2026_predicciones";
+const STORAGE_NUM = "mundial2026_numAmigos";
 
 let amigos = ["", "", ""];
 let predicciones = {}; // { [idPartido]: { 0:{l,v}, 1:{l,v}, 2:{l,v} } }
 let filtroActivo = "Todos";
+let numAmigos = 3; // cuántas personas predicen (1, 2 o 3)
 
 // ---------- Almacenamiento ----------
 function cargarDatos() {
@@ -18,11 +20,14 @@ function cargarDatos() {
     const p = JSON.parse(localStorage.getItem(STORAGE_PRED));
     if (p && typeof p === "object") predicciones = p;
   } catch (e) {}
+  const n = parseInt(localStorage.getItem(STORAGE_NUM), 10);
+  if (n === 1 || n === 2 || n === 3) numAmigos = n;
 }
 
 function guardarDatos() {
   localStorage.setItem(STORAGE_AMIGOS, JSON.stringify(amigos));
   localStorage.setItem(STORAGE_PRED, JSON.stringify(predicciones));
+  localStorage.setItem(STORAGE_NUM, String(numAmigos));
   mostrarAviso("✅ ¡Guardado! Tus predicciones quedaron en este navegador.");
 }
 
@@ -42,6 +47,32 @@ function initAmigos() {
     input.addEventListener("input", () => {
       amigos[n - 1] = input.value.trim();
       actualizarNombresEnPredicciones();
+    });
+  });
+  aplicarVisibilidadAmigos();
+}
+
+// Muestra solo las cajas de nombre de las personas activas
+function aplicarVisibilidadAmigos() {
+  [1, 2, 3].forEach((n) => {
+    const label = document.querySelector(".amigo-" + n);
+    if (label) label.style.display = n <= numAmigos ? "" : "none";
+  });
+}
+
+// ---------- Selector de cantidad de personas ----------
+function initSelectorCantidad() {
+  const cont = document.getElementById("opcionesCantidad");
+  if (!cont) return;
+  cont.querySelectorAll(".num-btn").forEach((btn) => {
+    const num = parseInt(btn.getAttribute("data-num"), 10);
+    btn.classList.toggle("activo", num === numAmigos);
+    btn.addEventListener("click", () => {
+      numAmigos = num;
+      localStorage.setItem(STORAGE_NUM, String(numAmigos));
+      initSelectorCantidad();
+      aplicarVisibilidadAmigos();
+      renderPartidos();
     });
   });
 }
@@ -130,9 +161,24 @@ function crearFilaPrediccion(partido, amigoIdx) {
   return fila;
 }
 
+// Un partido está finalizado si su fecha ya pasó (antes de hoy)
+function estaFinalizado(fechaISO) {
+  try {
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    const fecha = new Date(fechaISO + "T00:00:00");
+    return fecha < hoy;
+  } catch (e) {
+    return false;
+  }
+}
+
 function crearTarjetaPartido(partido) {
   const card = document.createElement("article");
   card.className = "partido";
+
+  const finalizado = estaFinalizado(partido.fecha);
+  if (finalizado) card.classList.add("finalizado");
 
   const cab = document.createElement("div");
   cab.className = "partido-cab";
@@ -145,16 +191,32 @@ function crearTarjetaPartido(partido) {
     <span class="equipo"><span class="bandera">${partido.visitante.bandera}</span>${partido.visitante.nombre}</span>
   `;
 
+  const meta = document.createElement("div");
+  meta.className = "partido-meta";
+
+  if (finalizado) {
+    const estado = document.createElement("span");
+    estado.className = "estado-finalizado";
+    estado.textContent = "Finalizado";
+    meta.appendChild(estado);
+  }
+
   const fecha = document.createElement("span");
   fecha.className = "fecha";
-  fecha.textContent = formatearFecha(partido.fecha);
+  let textoFecha = formatearFecha(partido.fecha);
+  if (partido.hora) textoFecha += " · " + partido.hora;
+  if (partido.estimado) textoFecha += " (por confirmar)";
+  fecha.textContent = textoFecha;
+  meta.appendChild(fecha);
 
   cab.appendChild(equipos);
-  cab.appendChild(fecha);
+  cab.appendChild(meta);
 
   const preds = document.createElement("div");
   preds.className = "predicciones";
-  [0, 1, 2].forEach((i) => preds.appendChild(crearFilaPrediccion(partido, i)));
+  for (let i = 0; i < numAmigos; i++) {
+    preds.appendChild(crearFilaPrediccion(partido, i));
+  }
 
   card.appendChild(cab);
   card.appendChild(preds);
@@ -196,9 +258,12 @@ function resetTodo() {
   if (!confirm("¿Seguro que quieres borrar TODOS los nombres y predicciones?")) return;
   amigos = ["", "", ""];
   predicciones = {};
+  numAmigos = 3;
   localStorage.removeItem(STORAGE_AMIGOS);
   localStorage.removeItem(STORAGE_PRED);
+  localStorage.removeItem(STORAGE_NUM);
   initAmigos();
+  initSelectorCantidad();
   initFiltros();
   renderPartidos();
   mostrarAviso("🗑️ Todo borrado.");
@@ -207,6 +272,7 @@ function resetTodo() {
 // ---------- Init ----------
 function init() {
   cargarDatos();
+  initSelectorCantidad();
   initAmigos();
   initFiltros();
   renderPartidos();
@@ -216,6 +282,7 @@ function init() {
   window.addEventListener("beforeunload", () => {
     localStorage.setItem(STORAGE_AMIGOS, JSON.stringify(amigos));
     localStorage.setItem(STORAGE_PRED, JSON.stringify(predicciones));
+    localStorage.setItem(STORAGE_NUM, String(numAmigos));
   });
 }
 
