@@ -203,7 +203,11 @@ function crearTarjetaPartido(partido) {
 
   const fecha = document.createElement("span");
   fecha.className = "fecha";
-  fecha.textContent = formatearFecha(partido.fecha);
+  let textoFecha = formatearFecha(partido.fecha);
+  if (partido.hora) textoFecha += " · " + partido.hora + " h";
+  if (partido.sede) textoFecha += " · " + partido.sede;
+  if (partido.estimado) textoFecha += " (por confirmar)";
+  fecha.textContent = textoFecha;
   meta.appendChild(fecha);
 
   cab.appendChild(equipos);
