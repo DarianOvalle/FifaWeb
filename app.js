@@ -75,13 +75,33 @@ function actualizarBotonVer() {
 
 function abrirModalGuardadas() {
   renderListaGuardadas();
-  document.getElementById("modalGuardadas").classList.remove("oculto");
+  const modal = document.getElementById("modalGuardadas");
+  if (!modal) return;
+  modal.hidden = false;
   document.body.style.overflow = "hidden";
 }
 
 function cerrarModalGuardadas() {
-  document.getElementById("modalGuardadas").classList.add("oculto");
+  const modal = document.getElementById("modalGuardadas");
+  if (!modal) return;
+  modal.hidden = true;
   document.body.style.overflow = "";
+}
+
+function initModal() {
+  const modal = document.getElementById("modalGuardadas");
+  if (!modal) return;
+  modal.hidden = true;
+
+  const cerrar = cerrarModalGuardadas;
+  document.getElementById("modalCerrar")?.addEventListener("click", cerrar);
+  document.getElementById("modalCerrarAbajo")?.addEventListener("click", cerrar);
+  document.getElementById("modalFondo")?.addEventListener("click", cerrar);
+  document.getElementById("modalCuadro")?.addEventListener("click", (e) => e.stopPropagation());
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal && !modal.hidden) cerrar();
+  });
 }
 
 function renderListaGuardadas() {
@@ -408,6 +428,7 @@ function resetTodo() {
 
 // ---------- Init ----------
 function init() {
+  initModal();
   cargarDatos();
   initSelectorCantidad();
   initAmigos();
@@ -418,11 +439,6 @@ function init() {
   document.getElementById("btnReset").addEventListener("click", resetTodo);
   document.getElementById("btnBorrarPersonas").addEventListener("click", borrarPersonas);
   document.getElementById("btnVer").addEventListener("click", abrirModalGuardadas);
-  document.getElementById("modalCerrar").addEventListener("click", cerrarModalGuardadas);
-  document.getElementById("modalFondo").addEventListener("click", cerrarModalGuardadas);
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") cerrarModalGuardadas();
-  });
   // Guardado automático al cerrar/cambiar de pestaña
   window.addEventListener("beforeunload", () => {
     localStorage.setItem(STORAGE_AMIGOS, JSON.stringify(amigos));

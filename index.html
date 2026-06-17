@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Predicciones Mundial 2026 ⚽</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=4" />
 </head>
 <body>
   <header class="hero">
@@ -70,19 +70,20 @@
   </footer>
 
   <!-- Recuadro con las predicciones guardadas -->
-  <div id="modalGuardadas" class="modal oculto">
-    <div class="modal-fondo" id="modalFondo"></div>
-    <div class="modal-cuadro">
+  <div id="modalGuardadas" class="modal" hidden>
+    <div class="modal-fondo" id="modalFondo" onclick="document.getElementById('modalGuardadas').hidden=true;document.body.style.overflow=''"></div>
+    <div class="modal-cuadro" id="modalCuadro">
       <div class="modal-cab">
         <h3>⭐ Mis predicciones guardadas</h3>
-        <button type="button" class="modal-cerrar" id="modalCerrar" aria-label="Cerrar">✕</button>
+        <button type="button" class="modal-cerrar" id="modalCerrar" aria-label="Cerrar" onclick="document.getElementById('modalGuardadas').hidden=true;document.body.style.overflow=''">✕</button>
       </div>
       <p class="modal-hint">Toca una para volver a cargarla con todos sus datos.</p>
       <div class="modal-lista" id="modalLista"></div>
+      <button type="button" class="btn btn-cerrar-modal" id="modalCerrarAbajo" onclick="document.getElementById('modalGuardadas').hidden=true;document.body.style.overflow=''">Cerrar</button>
     </div>
   </div>
 
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <script src="data.js?v=4"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
