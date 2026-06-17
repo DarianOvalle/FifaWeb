@@ -336,10 +336,13 @@ body {
   position: fixed;
   inset: 0;
   z-index: 50;
-  display: flex;
+  display: none; /* oculto por defecto */
   align-items: center;
   justify-content: center;
   padding: 20px;
+}
+.modal:not(.oculto) {
+  display: flex; /* solo visible cuando se quita la clase oculto */
 }
 .modal-fondo {
   position: absolute;

@@ -76,10 +76,12 @@ function actualizarBotonVer() {
 function abrirModalGuardadas() {
   renderListaGuardadas();
   document.getElementById("modalGuardadas").classList.remove("oculto");
+  document.body.style.overflow = "hidden";
 }
 
 function cerrarModalGuardadas() {
   document.getElementById("modalGuardadas").classList.add("oculto");
+  document.body.style.overflow = "";
 }
 
 function renderListaGuardadas() {
